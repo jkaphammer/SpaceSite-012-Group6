@@ -1,4 +1,9 @@
-Meeting 1: 4/12
+Meeting 1: 4/5
     - Discussed main website idea: Decision made to do astronomy-themed website
     - Delegated lab 10 work, everyone doing ~2 sections of lab on shared google doc
     - Following-up by communicating over Discord on submitting Lab 10
+
+Meeting 2: 4/12
+    - Discussed project board
+    - Discussed meeting format
+        - Project board demos for whatever was accomplished or bugs met
