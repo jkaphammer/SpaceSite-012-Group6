@@ -15,3 +15,9 @@ Meeting 2: 4/12
         Elijah: Astronauts in space/dashboard
         Arthur: ISS API/dashboard
     - For weekly team meeting:
+        Arrange tasks needed and rank by priority
+        First section: Absolutely necessary for completion
+        Second section: Features to add if time
+        Work on functionality first, beautification later
+        Attempt to write clean code
+        Move your own project board stories BEFORE meeting
