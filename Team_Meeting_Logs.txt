@@ -7,3 +7,11 @@ Meeting 2: 4/12
     - Discussed project board
     - Discussed meeting format
         - Project board demos for whatever was accomplished or bugs met
+    - Aim to have no work for due week
+    - Plans: 
+        Jenn: Start on dashboard branch
+        Joseph: Homepage and iFrames for homepage
+        Brian: Register/Login
+        Elijah: Astronauts in space/dashboard
+        Arthur: ISS API/dashboard
+    - For weekly team meeting:
