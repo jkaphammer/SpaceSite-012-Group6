@@ -1,6 +1,5 @@
-// *****************************************************
-// <!-- Section 1 : Import Dependencies -->
-// *****************************************************
+// Import HERE
+// ************
 
 const express = require('express'); // To build an application server or API
 const app = express();
@@ -15,20 +14,19 @@ const user = {
   password: undefined,
 };
 
-// *****************************************************
-// <!-- Section 2 : Connect to DB -->
-// *****************************************************
+// Connect to DB HERE
+// *************
 
 // database configuration
 const dbConfig = {
-  host: 'db', // the database server
-  port: 5432, // the database port
-  database: process.env.POSTGRES_DB, // the database name
-  user: process.env.POSTGRES_USER, // the user account to connect with
-  password: process.env.POSTGRES_PASSWORD, // the password of the user account
-};
+    host: 'db', // the database server
+    port: 5432, // the database port
+    database: process.env.POSTGRES_DB, // the database name
+    user: process.env.POSTGRES_USER, // the user account to connect with
+    password: process.env.POSTGRES_PASSWORD, // the password of the user account
+  };
 
-const db = pgp(dbConfig);
+  const db = pgp(dbConfig);
 
 // test your database
 db.connect()
@@ -40,7 +38,7 @@ db.connect()
     console.log('ERROR:', error.message || error);
   });
 
-// *****************************************************
+  // *****************************************************
 // <!-- Section 3 : App Settings -->
 // *****************************************************
 
@@ -62,6 +60,10 @@ app.use(
   })
 );
 
-// *****************************************************
-// <!-- Section 4 : API Routes -->
-// *****************************************************
+// API routes HERE
+// ***************
+
+// space storms GET
+app.get("/dashboard", (req, res) => {
+
+});
