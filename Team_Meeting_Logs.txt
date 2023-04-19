@@ -28,3 +28,13 @@ Meeting 1: 4/12
     - Delegated lab 10 work, everyone doing ~2 sections of lab on shared google doc
     - Following-up by communicating over Discord on submitting Lab 10
 >>>>>>> Stashed changes
+
+
+
+Meeting 2: 4/19
+    - Continue working on ISS API and UI
+    - Finish Picture of the Day API
+    - Finish login/logout feature
+    - Start on comment feature
+    - Profile Page after Login/Logout
+    - Like/Dislike Feature
