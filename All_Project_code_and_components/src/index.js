@@ -224,6 +224,10 @@ app.use(auth);
 
 //functions for NASA picture of the day space API
 
+app.get("pages/home", (req, res) => {
+  res.render("pages/home");
+});
+
 function contentLoader()
 {
   sendApiReq();
