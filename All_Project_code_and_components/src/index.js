@@ -81,22 +81,23 @@ function getSpacePeople() {
     console.log(err);
   });
 }
+const loader = new Loader({
+  apiKey: process.env.GOOGLE_KEY,
+  version: "weekly",
+  ...additionalOptions,
+});
 
-let map;
-
-async function initMap(lat, lng) {
-  //@ts-ignore
-  const { Map } = await google.maps.importLibrary("maps");
-
-  map = new Map(document.getElementById("map"), {
-    center: { lat: lat, lng: lng },
-    zoom: 3,
+function initMap(latitude, longitude) {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: latitude, lng: longitude},
+    zoom: 0
   });
 }
 
 
+
 async function getIssLocation() {
-  var issLocation;
+  //var issLocation;
   axios({
     url:"http://api.open-notify.org/iss-now.json",
     method:"GET",
@@ -107,8 +108,8 @@ async function getIssLocation() {
   })
   .then(results => {
     console.log(results.data);
-    issLocation = results.data;
-    initMap(results.data.iss_position.longitude, results.data.iss_position.latitude)
+    //issLocation = results.data;
+    initMap(results.data.iss_position.latitude, results.data.iss_position.longitude)
 
   }) .catch(function (err) {
     console.log(err);
