@@ -82,7 +82,20 @@ function getSpacePeople() {
   });
 }
 
-function getIssLocation() {
+let map;
+
+async function initMap(lat, lng) {
+  //@ts-ignore
+  const { Map } = await google.maps.importLibrary("maps");
+
+  map = new Map(document.getElementById("map"), {
+    center: { lat: lat, lng: lng },
+    zoom: 3,
+  });
+}
+
+
+async function getIssLocation() {
   var issLocation;
   axios({
     url:"http://api.open-notify.org/iss-now.json",
@@ -95,7 +108,8 @@ function getIssLocation() {
   .then(results => {
     console.log(results.data);
     issLocation = results.data;
-    return issLocation;
+    initMap(results.data.iss_position.longitude, results.data.iss_position.latitude)
+
   }) .catch(function (err) {
     console.log(err);
   });
