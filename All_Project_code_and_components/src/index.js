@@ -106,7 +106,7 @@ const solarAPIKEY = "kcfeqGsFGFrhNQb77BVpNbAj7RVmlHszKvbdsOPE"
 function getSolarFlareAPI() {
   var solarFlares;
   axios({
-    url: `https://api.nasa.gov/DONKI/SEP?startDate=yyyy-MM-dd&endDate=yyyy-MM-dd&api_key=${solarAPIKEY}`,
+    url: `https://api.nasa.gov/DONKI/FLR?api_key=${solarAPIKEY}`,
     method: "GET",
     datatype: "json",
     headers: {
@@ -188,9 +188,9 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/dashboard', (req, res) => {
-  res.render('pages/dashboard');
   
-  getSolarFlareAPI();
+  const solarresult = getSolarFlareAPI();
+  res.render('pages/dashboard', {solarFlare: solarresult});
 });
 
 // Authentication Middleware.
