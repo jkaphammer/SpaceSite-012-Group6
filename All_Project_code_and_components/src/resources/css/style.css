@@ -1,1 +1,26 @@
-/* test */
+body {
+    background-color: lightblue;
+    font-family: 'Times New Roman', Times, serif;
+    height: 100%;
+    margin: 0;
+}
+
+#title {
+    color: aqua;
+    padding-top: 10px;
+}
+
+.content {
+    background-color: white;
+    width: 700px;
+    text-align: center;
+    margin: auto;
+}
+
+#content {
+    font-size: 1.3rem
+}
+
+.main-img {
+    width: 700px;
+}
