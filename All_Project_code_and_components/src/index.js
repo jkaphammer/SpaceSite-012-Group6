@@ -82,6 +82,24 @@ function getSpacePeople() {
   });
 }
 
+function getIssLocation() {
+  var issLocation;
+  axios({
+    url:"http://api.open-notify.org/iss-now.json",
+    method:"GET",
+    datatype:"json",
+    headers: {
+      'Accept-Encoding': 'application/json',
+    },
+  })
+  .then(results => {
+    console.log(results.data);
+    issLocation = results.data;
+    return issLocation;
+  }) .catch(function (err) {
+    console.log(err);
+  });
+}
 
 // API routes HERE
 // ***************
