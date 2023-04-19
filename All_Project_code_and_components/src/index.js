@@ -101,6 +101,28 @@ function getIssLocation() {
   });
 }
 
+// Dashboard - Solar Flares API
+const solarAPIKEY = "kcfeqGsFGFrhNQb77BVpNbAj7RVmlHszKvbdsOPE"
+function getSolarFlareAPI() {
+  var solarFlares;
+  axios({
+    url: `https://api.nasa.gov/DONKI/FLR?api_key=${solarAPIKEY}`,
+    method: "GET",
+    datatype: "json",
+    headers: {
+      'Accept-Encoding': 'application/json',
+    },
+  })
+
+  .then(results => {
+    console.log(results.data);
+    solarFlares = results.data;
+    return solarFlares;
+  }) .catch(function (err) {
+    console.log(err);
+  });
+}
+
 // API routes HERE
 // ***************
 
@@ -165,6 +187,12 @@ app.post('/login', (req, res) => {
 
 });
 
+app.get('/dashboard', (req, res) => {
+  
+  const solarresult = getSolarFlareAPI();
+  res.render('pages/dashboard', {solarFlare: solarresult});
+});
+
 // Authentication Middleware.
 const auth = (req, res, next) => {
   if (!req.session.user) {
@@ -201,11 +229,6 @@ function useApiData(data)
   document.querySelector("#content").innerHTML += `<img src = "${data.url}" class = "main.img" /> <br/>`
   document.querySelector("#content").innerHTML += data.explanation;
 }
-
-// space storms GET
-app.get("/dashboard", (req, res) => {
-
-});
 
 // Test/Lab11
 app.get('/welcome', (req, res) => {
