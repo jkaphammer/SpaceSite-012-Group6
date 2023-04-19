@@ -63,7 +63,89 @@ app.use(
 // API routes HERE
 // ***************
 
+app.get('/', (req, res) => {
+  res.redirect('/login'); //this will call the /login route in the API
+});
+
+app.get('/register', (req, res) => {
+  res.render('pages/register');
+});
+
+app.post('/register', async (req, res) => {
+  const { name, email, password } = req.body;
+
+  const hash = await bcrypt.hash(req.body.password,10);
+  const query = {
+    text: 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
+    values: [name, email, hash],
+  };
+  
+  db.one(query)
+  .then((data) =>{
+
+    user.username = data.username;
+    user.password = data.password;
+
+    res.redirect('/login')
+  })
+  .catch((err) => {
+    console.log(err);
+    res.redirect('/register');
+  });
+});
+
+app.get('/login', (req, res) => {
+  res.render('pages/login');
+});
+
+app.post('/login', (req, res) => {
+
+  const query = `SELECT * FROM users WHERE username = '${req.body.username}';`;
+
+  db.one(query)
+  .then(async (data) =>{
+    const match = await bcrypt.compare(req.body.password, data.password);
+
+    if(match == true){
+      user.username = req.body.username;
+      user.password = req.body.password;
+      
+      req.session.user = user;
+      req.session.save();
+      res.redirect('/home');
+    }else{
+      throw new Error('Incorrect username or password.');
+    }
+  })
+  .catch((err)=>{
+    res.redirect('/register');
+    console.log(err);
+  });
+
+});
+
+// Authentication Middleware.
+const auth = (req, res, next) => {
+  if (!req.session.user) {
+    // Default to login page.
+    return res.redirect('/login');
+  }
+  next();
+};
+// Authentication Required
+app.use(auth);
+
+
 // space storms GET
 app.get("/dashboard", (req, res) => {
 
 });
+
+// Test/Lab11
+app.get('/welcome', (req, res) => {
+  res.json({status: 'success', message: 'Welcome!'});
+});
+
+
+module.exports = app.listen(3000);
+console.log('Server is listening on port 3000');
