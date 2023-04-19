@@ -38,7 +38,7 @@ db.connect()
     console.log('ERROR:', error.message || error);
   });
 
-  // *****************************************************
+// *****************************************************
 // <!-- Section 3 : App Settings -->
 // *****************************************************
 
@@ -59,6 +59,29 @@ app.use(
     extended: true,
   })
 );
+
+//FUNCTIONS
+// ****************
+
+function getSpacePeople() {
+  var spacePeople;
+  axios({
+    url:"http://api.open-notify.org/astros.json",
+    method:"GET",
+    datatype:"json",
+    headers: {
+      'Accept-Encoding': 'application/json',
+    },
+  })
+  .then(results => {
+    console.log(results.data);
+    spacePeople = results.data;
+    return spacePeople;
+  }) .catch(function (err) {
+    console.log(err);
+  });
+}
+
 
 // API routes HERE
 // ***************
