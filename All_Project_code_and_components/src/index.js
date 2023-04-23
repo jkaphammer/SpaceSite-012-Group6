@@ -81,11 +81,11 @@ function getSpacePeople() {
     console.log(err);
   });
 }
-const loader = new Loader({
-  apiKey: process.env.GOOGLE_KEY,
-  version: "weekly",
-  ...additionalOptions,
-});
+// const loader = new Loader({
+//   apiKey: process.env.GOOGLE_KEY,
+//   version: "weekly",
+//   ...additionalOptions,
+// });
 
 function initMap(latitude, longitude) {
   var map = new google.maps.Map(document.getElementById('map'), {
