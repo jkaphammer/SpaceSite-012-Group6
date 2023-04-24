@@ -115,11 +115,12 @@ async function getIssLocation() {
     console.log(err);
   });
 }
-
+console.log("PRE-SOLAR-FUNC")
 // Dashboard - Solar Flares API
 const solarAPIKEY = "kcfeqGsFGFrhNQb77BVpNbAj7RVmlHszKvbdsOPE"
 function getSolarFlareAPI() {
   var solarFlares;
+  console.log("PRE-AXIOS");
   axios({
     url: `https://api.nasa.gov/DONKI/FLR?api_key=${solarAPIKEY}`,
     method: "GET",
@@ -128,10 +129,13 @@ function getSolarFlareAPI() {
       'Accept-Encoding': 'application/json',
     },
   })
+  
 
   .then(results => {
-    console.log(results.data);
-    solarFlares = results.data;
+    console.log("POST-AXIOS")
+    console.log(results);
+    solarFlares = results;
+    console.log(solarFlares);
     return solarFlares;
   }) .catch(function (err) {
     console.log(err);
@@ -202,10 +206,20 @@ app.post('/login', (req, res) => {
 
 });
 
-app.get('/dashboard', (req, res) => {
+app.get('/dashboard', async (req, res) => {
   
-  const solarresult = getSolarFlareAPI();
-  res.render('pages/dashboard', {solarFlare: solarresult});
+  // const solarresult = await getSolarFlareAPI();
+  const solarresult =   await axios({
+    url: `https://api.nasa.gov/DONKI/FLR?api_key=${solarAPIKEY}`,
+    method: "GET",
+    datatype: "json",
+    headers: {
+      'Accept-Encoding': 'application/json',
+    },
+  });
+  console.log("CHECKHERE");
+  console.log(solarresult.data);
+  res.render('pages/dashboard', {solarFlares: solarresult});
 });
 
 // Authentication Middleware.
