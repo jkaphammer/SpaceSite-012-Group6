@@ -1,10 +1,20 @@
+
 <!-- Include Header here -->
+
 <%- include ('../partials/header') %> 
 <!-- Include Navbar menu here -->
 <%- include ('../partials/menu') %>
 
 <main>
+    
     <h1><centre>Dashboard</centre></h1>
+    <div>
+        <h3>Recent solar flare data recorded by NASA</h3>
+        <!-- NEED TO APPROVE X-FRAME TO SINGLE ORIGIN -->
+        <!-- <iframe src="<%= solarFlares.data[0].link %>" height="200" width="300" title="Solar Flares iFrame"></iframe> -->
+        
+    </div>
+    
     <div class ="carousel slide" data-ride="carousel" id="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
@@ -33,9 +43,7 @@
             <div class="carousel-item">
                 <img class="d-block w-100" src="..." alt="Space Storms">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Solar Flares</h5>
-                    <% solarFlare %>
-                    <p><iframe src="<% solarFlare[0].link%>" > </iframe></p>
+
                 </div>
             </div>
         </div>
