@@ -1,0 +1,27 @@
+<!-- Include Header here -->
+<%- include ('../partials/header') %> 
+<!-- Include Navbar menu here -->
+<%- include ('../partials/menu') %>
+<head>
+    <title>HTML Full-screen iframe (100% Height and Width)</title>
+    <style>
+        body{
+            margin: 0; /* Remove default margin */
+        }
+        /* Sets iframe to full page */
+        iframe{      
+            display: block;  /* iframes are inline by default */   
+            height: 100vh;  /* Set height to 100% of the viewport height */   
+            width: 100vw;  /* Set width to 100% of the viewport width */     
+            border: none; /* Remove default border */
+            background: rgb(12, 69, 107); /* Just for styling */
+        }
+    </style>
+    </head>
+    <body>
+        <iframe src="https://www.google.com/sky/" title="Google_Sky"></iframe>
+    </body>
+    </html>
+    
+
+<%- include ('../partials/footer') %>
