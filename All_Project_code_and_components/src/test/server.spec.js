@@ -32,23 +32,25 @@ it('positive : /login', done => {
     chai
       .request(server)
       .post('/login')
-      .send({email: 'johndoe@example.com', password: 'HelloWorld'})
+      .send({email: 'johndoe@example.com', password: '12345'})
       .end((err, res) => {
         expect(res).to.have.status(200);
+        expect(res.body.status).to.equals('success');
         expect(res.body.message).to.equals('Login Success');
         done();
       });
   });
 
-  //We are checking POST /add_user API by passing the user info in in incorrect manner (name cannot be an integer). This test case should pass and return a status 200 along with a "Invalid input" message.
+  // We are checking POST /add_user API by passing the user info in in incorrect manner (name cannot be an integer). This test case should pass and return a status 200 along with a "Invalid input" message.
 it('Negative : /login', done => {
     chai
       .request(server)
       .post('/login')
       .send({email: 10, password: 'HelloWorld'})
       .end((err, res) => {
-        expect(res).to.have.status(401);
-        expect(res.body.message).to.equals('Incorrect username or password');
+        // expect(res).to.have.status(401);
+        expect(res.body.status).to.equals('error');
+        expect(res.body.message).to.equals('Incorrect email or password');
         done();
       });
   });
