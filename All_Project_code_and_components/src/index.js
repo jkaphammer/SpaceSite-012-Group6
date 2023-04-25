@@ -45,8 +45,12 @@ db.connect()
 
 app.set('view engine', 'ejs'); // set the view engine to EJS
 app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
+<<<<<<< Updated upstream
 app.use(cors())
 
+=======
+app.use(express.static("resources"));
+>>>>>>> Stashed changes
 
 // initialize session variables
 app.use(
@@ -228,35 +232,9 @@ const auth = (req, res, next) => {
 // Authentication Required
 app.use(auth);
 
-
-
-
-
-//functions for NASA picture of the day space API
-
-app.get("pages/home", (req, res) => {
+app.get("/home", (req, res) => {
   res.render("pages/home");
 });
-
-function contentLoader()
-{
-  sendApiReq();
-};
-
-async function sendApiReq() 
-{
-  let APIKEY = "kcfeqGsFGFrhNQb77BVpNbAj7RVmlHszKvbdsOPE";
-  let res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${APIKEY}`);
-  let data = await res.json();
-  useApiData(data);
-};
-
-function useApiData(data)
-{
-  document.querySelector("#title").innerHTML += data.title;
-  document.querySelector("#content").innerHTML += `<img src = "${data.url}" class = "main.img" /> <br/>`
-  document.querySelector("#content").innerHTML += data.explanation;
-}
 
 // Test/Lab11
 app.get('/welcome', (req, res) => {
