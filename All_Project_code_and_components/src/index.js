@@ -225,6 +225,10 @@ app.get('/dashboard', async (req, res) => {
   res.render('pages/dashboard', {solarFlares: solarresult});
 });
 
+app.get('/google-sky', (req, res) => {
+  res.render('pages/googleSky');
+});
+
 // Authentication Middleware.
 const auth = (req, res, next) => {
   if (!req.session.user) {
