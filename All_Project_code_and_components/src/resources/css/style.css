@@ -1,26 +1,48 @@
 body {
-    background-color: lightblue;
-    font-family: 'Times New Roman', Times, serif;
     height: 100%;
-    margin: 0;
+    align-items : center;
+
+    width: 100%;
+    background-image: url(../img/skyBackground.jpg);
+
+    
 }
 
 #title {
-    color: aqua;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
     padding-top: 10px;
 }
 
 .content {
-    background-color: white;
-    width: 700px;
+    width: 900px;
     text-align: center;
     margin: auto;
 }
 
 #content {
-    font-size: 1.3rem
+    font-size: 1.0rem;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
 }
 
 .main-img {
-    width: 700px;
+    width: 300px;
+    
+}
+
+@media screen and (max-width: 1028px) {
+    .content {
+        height: 100%;
+        width: 100%;
+    }
+
+    #content {
+        font-size: 2rem;
+    }
+
+    .main-img {
+        width: 980px;
+    }
 }
