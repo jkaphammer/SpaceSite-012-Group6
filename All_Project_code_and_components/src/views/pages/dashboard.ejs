@@ -9,9 +9,39 @@
     
     <h1><centre>Dashboard</centre></h1>
     <div>
-        <h3>Recent solar flare data recorded by NASA</h3>
-        <!-- NEED TO APPROVE X-FRAME TO SINGLE ORIGIN -->
-        <!-- <iframe src="<%= solarFlares.data[0].link %>" height="200" width="300" title="Solar Flares iFrame"></iframe> -->
+        <h3 style ="color: #11416c; text-decoration: underline;">Solar flare data recorded by NASA</h3>
+        <a style="font-family: Verdana, Geneva, Tahoma, sans-serif;"href="<%= solarFlares.data[0].link %>"> Recent solar flare full data - NASA Website</a>
+        <!-- Table for solar flare info -->
+        <table style ="font-family: Verdana, Geneva, Tahoma, sans-serif;border: 5px solid #11416c; border-collapse:collapse">
+            <tr>
+                <th>Flare ID</th>
+                <td> <%=solarFlares.data[0].flrID %> </td>
+            </tr>
+            <tr>
+                <th>Instruments</th>
+                <td> <%=solarFlares.data[0].instruments[0].displayName %> </td>
+            </tr>
+            <tr>
+                <th>Begin time</th>
+                <td> <%=solarFlares.data[0].beginTime %> </td>
+            </tr>
+            <tr>
+                <th>Peak time</th>
+                <td> <%= solarFlares.data[0].peakTime %> </td>
+            </tr>
+            <tr>
+                <th> End time </th>
+                <td><%= solarFlares.data[0].endTime %></td>
+            </tr>
+            <tr>
+                <th> Class type </th>
+                <td><%= solarFlares.data[0].classType%></td>
+            </tr>
+            <tr>
+                <th> Source location </th>
+                <td><%= solarFlares.data[0].sourceLocation %></td>
+            </tr>
+        </table>
         
     </div>
     
