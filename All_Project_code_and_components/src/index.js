@@ -84,20 +84,6 @@ function getSpacePeople() {
     console.log(err);
   });
 }
-// const loader = new Loader({
-//   apiKey: process.env.GOOGLE_KEY,
-//   version: "weekly",
-//   ...additionalOptions,
-// });
-
-function initMap(latitude, longitude) {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: latitude, lng: longitude},
-    zoom: 0
-  });
-}
-
-
 
 async function getIssLocation() {
   //var issLocation;
@@ -112,7 +98,8 @@ async function getIssLocation() {
   .then(results => {
     console.log(results.data);
     //issLocation = results.data;
-    initMap(results.data.iss_position.latitude, results.data.iss_position.longitude)
+    //initMap(results.data.iss_position.latitude, results.data.iss_position.longitude)
+    return results.data;
 
   }) .catch(function (err) {
     console.log(err);
@@ -178,6 +165,7 @@ app.post('/register', async (req, res) => {
     res.redirect('/register');
   });
 });
+
 
 app.get('/login', (req, res) => {
   res.render('pages/login');
