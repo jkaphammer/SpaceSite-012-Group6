@@ -110,10 +110,9 @@ async function getIssLocation() {
 }
 console.log("PRE-SOLAR-FUNC")
 // Dashboard - Solar Flares API
-const solarAPIKEY = "kcfeqGsFGFrhNQb77BVpNbAj7RVmlHszKvbdsOPE"
+const solarAPIKEY = process.env.APIKEY
 function getSolarFlareAPI() {
   var solarFlares;
-  console.log("PRE-AXIOS");
   axios({
     url: `https://api.nasa.gov/DONKI/FLR?api_key=${solarAPIKEY}`,
     method: "GET",
@@ -125,10 +124,7 @@ function getSolarFlareAPI() {
   
 
   .then(results => {
-    console.log("POST-AXIOS")
-    console.log(results);
     solarFlares = results;
-    console.log(solarFlares);
     return solarFlares;
   }) .catch(function (err) {
     console.log(err);
@@ -232,8 +228,6 @@ app.get('/dashboard', async (req, res) => {
       'Accept-Encoding': 'application/json',
     },
   });
-  console.log("CHECKHERE");
-  console.log(solarresult.data);
   res.render('pages/dashboard', {solarFlares: solarresult});
 });
 
@@ -273,7 +267,7 @@ function contentLoader()
 
 async function sendApiReq() 
 {
-  let APIKEY = "kcfeqGsFGFrhNQb77BVpNbAj7RVmlHszKvbdsOPE";
+  let APIKEY = process.env.APIKEY;
   let res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${APIKEY}`);
   let data = await res.json();
   useApiData(data);
