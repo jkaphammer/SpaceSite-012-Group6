@@ -1,0 +1,27 @@
+<%- include ('../partials/header') %> 
+<%- include ('../partials/menu') %>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Profile</title>
+</head>
+<body>
+  <h1>Welcome, <%= name %></h1>
+  
+
+  <p><strong>Email:</strong> <%= email %></p>
+  
+  <% if (birthday) { %>
+    <p><strong>Birthday:</strong> <%= birthday.toLocaleDateString() %></p>
+  <% } else { %>
+    <p><strong>Birthday:</strong> N/A</p>
+  <% } %>
+  
+  <p><a href="/logout">Logout</a></p>
+</body>
+</html>
+
+
+<%- include ('../partials/footer') %>
