@@ -46,3 +46,9 @@ body {
         width: 980px;
     }
 }
+
+/* Styling for solar flare API on dashboard */
+.solar {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: azure;
+}
