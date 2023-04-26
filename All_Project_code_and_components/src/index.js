@@ -171,7 +171,7 @@ app.post('/register', async (req, res) => {
   })
   .catch((err) => {
     console.log(err);
-    res.render('/register');
+    res.render('pages/register');
   });
 });
 
