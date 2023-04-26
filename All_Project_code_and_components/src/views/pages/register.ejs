@@ -1,5 +1,5 @@
-<!-- <%- include ('../partials/header') %>
-<%- include ('../partials/menu') %> -->
+<%- include ('../partials/header') %>
+<%- include ('../partials/menu') %>
 
 <main>
   <div class="container">
@@ -14,8 +14,8 @@
         </div>
         <!-- Username  input-->
         <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" />
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" />
         </div>
         <!-- Password input-->
         <div class="form-group">
@@ -28,8 +28,9 @@
         </div>
 
     </form>
-    <!-- <div class="col"><%- include ('../partials/message') %></div> -->
+    <p>Already have an account? <a href="/login" class="btn" style="text-decoration: underline;">Login</a></p>
+    <div class="col"><%- include ('../partials/message') %></div>
   </div>
 </main>
 
-<!-- <%- include ('../partials/footer') %> -->
+<%- include ('../partials/footer') %>

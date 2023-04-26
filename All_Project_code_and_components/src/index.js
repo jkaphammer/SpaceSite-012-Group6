@@ -45,8 +45,9 @@ db.connect()
 
 app.set('view engine', 'ejs'); // set the view engine to EJS
 app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
-app.use(cors())
+// app.use(cors())
 
+app.use(express.static("resources")); 
 
 // initialize session variables
 app.use(
@@ -134,6 +135,10 @@ function getSolarFlareAPI() {
 
 // API routes HERE
 // ***************
+// Test/Lab11
+app.get('/welcome', (req, res) => {
+  res.json({status: 'success', message: 'Welcome!'});
+});
 
 app.get('/', (req, res) => {
   res.redirect('/login'); //this will call the /login route in the API
@@ -141,6 +146,10 @@ app.get('/', (req, res) => {
 
 app.get('/register', (req, res) => {
   res.render('pages/register');
+});
+
+app.get('/login', (req, res) => {
+  res.render('pages/login');
 });
 
 app.post('/register', async (req, res) => {
@@ -155,47 +164,56 @@ app.post('/register', async (req, res) => {
   db.one(query)
   .then((data) =>{
 
-    user.username = data.username;
+    user.username = data.name;
     user.password = data.password;
-
-    res.redirect('/login')
+     
+    res.render('pages/login', {message: 'Registered Successfully'});
   })
   .catch((err) => {
     console.log(err);
-    res.redirect('/register');
+    res.render('pages/register');
   });
-});
-
-
-app.get('/login', (req, res) => {
-  res.render('pages/login');
 });
 
 app.post('/login', (req, res) => {
 
-  const query = `SELECT * FROM users WHERE username = '${req.body.username}';`;
+  const query = `SELECT * FROM users WHERE users.email = '${req.body.email}';`;
 
   db.one(query)
   .then(async (data) =>{
     const match = await bcrypt.compare(req.body.password, data.password);
 
-    if(match == true){
-      user.username = req.body.username;
-      user.password = req.body.password;
+    if(match){
+      console.log(match)
+      user.email = req.body.email;
+      user.username = req.body.name;
       
       req.session.user = user;
       req.session.save();
-      res.redirect('/home');
+      res.render('pages/home', {message: 'logged in successfully'});
     }else{
-      throw new Error('Incorrect username or password.');
+      res.render('pages/login', {message: 'Incorrect email or password'});
     }
+
   })
   .catch((err)=>{
-    res.redirect('/register');
+    res.render('pages/register');
     console.log(err);
   });
 
 });
+
+// Authentication Middleware.
+const auth = (req, res, next) => {
+  if (!req.session.user) {
+    // Default to login page.
+    return res.redirect('/login');
+  }
+  next();
+};
+// Authentication Required
+app.use(auth);
+
 
 app.get('/dashboard', async (req, res) => {
   
@@ -217,24 +235,8 @@ app.get('/google-sky', (req, res) => {
   res.render('pages/googleSky');
 });
 
-// Authentication Middleware.
-const auth = (req, res, next) => {
-  if (!req.session.user) {
-    // Default to login page.
-    return res.redirect('/login');
-  }
-  next();
-};
-// Authentication Required
-app.use(auth);
 
-
-
-
-
-//functions for NASA picture of the day space API
-
-app.get("pages/home", (req, res) => {
+app.get("/home", (req, res) => {
   res.render("pages/home");
 });
 
@@ -258,11 +260,10 @@ function useApiData(data)
   document.querySelector("#content").innerHTML += data.explanation;
 }
 
-// Test/Lab11
-app.get('/welcome', (req, res) => {
-  res.json({status: 'success', message: 'Welcome!'});
+app.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.render("pages/logout");
 });
-
 
 module.exports = app.listen(3000);
 console.log('Server is listening on port 3000');
