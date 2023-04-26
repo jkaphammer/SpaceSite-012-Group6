@@ -8,9 +8,9 @@ async function initMap() {
         center: worldCenter,
         zoom: 1
     });
-
-    var myLatLng = { lat: -15.5806, lng: -60.7206 }; //add iss location, currently using sample location
     
+    var myLatLng = { lat: -15.5806, lng: -60.7206 }; //add iss location, currently using sample location
+    //var myLatLng = { lat: issLocation.data[0].latitude, lng: issLocation.data[0].longitude };
     new google.maps.Marker({
         position: myLatLng,
         map,

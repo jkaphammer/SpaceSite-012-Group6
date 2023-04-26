@@ -98,9 +98,9 @@ async function getIssLocation() {
   })
   .then(results => {
     console.log(results.data);
-    //issLocation = results.data;
+    var issLocation = results.data;
     //initMap(results.data.iss_position.latitude, results.data.iss_position.longitude)
-    return results.data;
+    return issLocation;
 
   }) .catch(function (err) {
     console.log(err);
@@ -141,7 +141,7 @@ app.get('/welcome', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.redirect('/login'); //this will call the /login route in the API
+  res.redirect('/home'); //this will call the /login route in the API
 });
 
 app.get('/register', (req, res) => {
@@ -203,16 +203,16 @@ app.post('/login', (req, res) => {
 
 });
 
-// Authentication Middleware.
-const auth = (req, res, next) => {
-  if (!req.session.user) {
-    // Default to login page.
-    return res.redirect('/login');
-  }
-  next();
-};
-// Authentication Required
-app.use(auth);
+// // Authentication Middleware.
+// const auth = (req, res, next) => {
+//   if (!req.session.user) {
+//     // Default to login page.
+//     return res.redirect('/login');
+//   }
+//   next();
+// };
+// // Authentication Required
+// app.use(auth);
 
 
 app.get('/dashboard', async (req, res) => {
