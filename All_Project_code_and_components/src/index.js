@@ -11,7 +11,9 @@ const bcrypt = require('bcrypt'); //  To hash passwords
 const axios = require('axios'); // To make HTTP requests from our server. We'll learn more about it in Part B.
 
 const user = {
-  username: undefined,
+  name: undefined,
+  email: undefined,
+  birthday: undefined,
   password: undefined,
 };
 
@@ -153,25 +155,28 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, birthday } = req.body;
 
   const hash = await bcrypt.hash(req.body.password,10);
   const query = {
-    text: 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
-    values: [name, email, hash],
+    text: 'INSERT INTO users (name, email, password, birthday) VALUES ($1, $2, $3, $4) RETURNING *',
+    values: [name, email, hash, birthday],
   };
   
   db.one(query)
   .then((data) =>{
 
-    user.username = data.name;
-    user.password = data.password;
+    user.name = data.name;
+    user.email = data.email;
+    user.birthday = data.birthday;
+    req.session.user = user;
+    req.session.save();
      
     res.render('pages/login', {message: 'Registered Successfully'});
   })
   .catch((err) => {
     console.log(err);
-    res.render('pages/register');
+    res.render('pages/register', {message: 'Try again with a different email'});
   });
 });
 
@@ -184,9 +189,10 @@ app.post('/login', (req, res) => {
     const match = await bcrypt.compare(req.body.password, data.password);
 
     if(match){
-      console.log(match)
+      console.log(match);
       user.email = req.body.email;
-      user.username = req.body.name;
+      user.name = req.body.name;
+      user.birthday = req.body.birthday;
       
       req.session.user = user;
       req.session.save();
@@ -239,6 +245,26 @@ app.get('/google-sky', (req, res) => {
 app.get("/home", (req, res) => {
   res.render("pages/home");
 });
+
+app.get('/profile', (req, res) => {
+  // Check if user is logged in
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
+  console.log(req.session.user);
+  const query = `SELECT name, email, birthday FROM users WHERE users.email = '${req.session.user.email}';`;
+
+  db.one(query)
+    .then((data) => {
+      res.render('pages/profile', { name: data.name, email: data.email, birthday: data.birthday });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect('/login');
+    });
+});
+
+
 
 function contentLoader()
 {
