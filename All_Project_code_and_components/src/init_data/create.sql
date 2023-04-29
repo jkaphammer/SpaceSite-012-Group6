@@ -6,3 +6,9 @@ CREATE TABLE users(
     password CHAR(60) NOT NULL,
     birthday DATE NOT NULL
 );
+
+CREATE TABLE comments(
+    email VARCHAR(50) REFERENCES users(email),
+    comment VARCHAR(500) PRIMARY KEY,
+    pictureDate DATE
+);
