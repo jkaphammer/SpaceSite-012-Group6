@@ -192,14 +192,14 @@ app.post('/login', (req, res) => {
       
       req.session.user = user;
       req.session.save();
-      res.render('pages/home', {message: 'logged in successfully'});
+      res.redirect('/home');
     }else{
       res.render('pages/login', {message: 'Incorrect email or password'});
     }
 
   })
   .catch((err)=>{
-    res.render('pages/register');
+    res.redirect('/register');
     console.log(err);
   });
 
@@ -235,9 +235,29 @@ app.get('/google-sky', (req, res) => {
   res.render('pages/googleSky');
 });
 
+app.post("/comment", (req, res) => {
+ // writing an api where when the comment form is submitted, 
+ // it puts the comment into the comment table database with the comment, and email
 
-app.get("/home", (req, res) => {
-  res.render("pages/home");
+ let date = new Date().toJSON().slice(0, 10);
+
+ console.log(date)
+
+ const query = {
+  text: `INSERT INTO comments (email, comment, pictureDate) VALUES ($1, $2, $3) RETURNING *`, // the comments table doesn't exist?
+  values: [req.body.email, req.body.comment, date], 
+};
+
+  db.one(query)
+  .then((data) =>{
+    res.render('pages/home', {message: 'Comment Submitted!'});
+    console.log('Comment Submitted!')
+  })
+  .catch((err) => {
+    console.log('Error Not sumbitted comment');
+    console.log(err);
+    res.render('pages/home', {results:[]});
+  });
 });
 
 app.get('/profile', (req, res) => {
