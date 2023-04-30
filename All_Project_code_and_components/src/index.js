@@ -279,26 +279,20 @@ app.get('/profile', (req, res) => {
 });
 
 
+app.get("/home", async (req,res) => {
+  let date = new Date().toJSON().slice(0,10);
 
-function contentLoader()
-{
-  sendApiReq();
-};
+  const query = `SELECT * FROM comments WHERE pictureDate = ${date};`;
 
-async function sendApiReq() 
-{
-  let APIKEY = process.env.API_KEY;
-  let res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${APIKEY}`);
-  let data = await res.json();
-  useApiData(data);
-};
-
-function useApiData(data)
-{
-  document.querySelector("#title").innerHTML += data.title;
-  document.querySelector("#content").innerHTML += `<img src = "${data.url}" class = "main.img" /> <br/>`
-  document.querySelector("#content").innerHTML += data.explanation;
-}
+  db.one(query)
+  .then((results) => {
+    res.render('pages/home', {results});
+  })
+  .catch((err) => {
+    console.log(err);
+    res.render('pages/home', {results:[]});
+  })
+})
 
 app.get("/logout", (req, res) => {
   req.session.destroy();
