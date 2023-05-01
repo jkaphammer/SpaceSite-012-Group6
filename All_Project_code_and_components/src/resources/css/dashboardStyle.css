@@ -1,0 +1,39 @@
+body {
+    height: 100%;
+    align-items : center;
+
+    width: 100%;
+    background-image: url(../img/skyBackground.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+}
+
+#title {
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/* Styling for solar flare API on dashboard */
+.solar {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: azure;
+}
+
+#solarFlareDesc{
+    color: azure;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Place images in center */
+
+.solar-pic-center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Stlye paragraph of solar desc */
+.solar-desc{
+    text-align: center;
+}
