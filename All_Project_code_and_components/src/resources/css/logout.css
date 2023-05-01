@@ -1,0 +1,13 @@
+   body {
+    height: 100%;
+    align-items : center;
+
+    width: 100%;
+    background-image: url(../img/skyBackground.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+}
+.container{
+    color: aliceblue;
+}

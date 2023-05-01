@@ -5,6 +5,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/profile.css">
   <title>Profile</title>
   <style>
     body {
@@ -39,7 +40,12 @@
     <p><strong>Birthday:</strong> N/A</p>
   <% } %>
   
-  <p><a href="/logout">Logout</a></p>
+  <div class="profile-picture">
+    <img src="/img/Profile.png" alt="Profile Picture">
+    <input type="file" id="profile-picture-upload">
+    <label for="profile-picture-upload">Change Picture</label>
+  </div>
+  
 </body>
 </html>
 
