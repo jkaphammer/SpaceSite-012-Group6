@@ -8,7 +8,62 @@
 <html>
 <head>
 	<title>International Space Station</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.GOOGLE_KEY %>"></script>
+    <script>
+        function initMap() {
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 2,
+            center: {lat: 0, lng: 0} // set initial center to 0,0
+          });
+          
+          var marker = new google.maps.Marker({
+            map: map,
+            label: {
+            text: 'ISS',
+            color: 'white',
+            fontWeight: 'bold',
+            labelOrigin: new google.maps.Point(20, -40) 
+            }
+
+          });
+          
+          fetch('http://api.open-notify.org/iss-now.json')
+            .then(function(response) {
+            return response.json();
+            })
+            .then(function(data) {
+            var issPosition = data.iss_position;
+            marker.setPosition(new google.maps.LatLng(issPosition.latitude, issPosition.longitude));
+            map.setCenter(new google.maps.LatLng(issPosition.latitude, issPosition.longitude));
+
+            document.getElementById('latitude').innerHTML = issPosition.latitude;
+            document.getElementById('longitude').innerHTML = issPosition.longitude;
+            });
+          
+        // version that updates marker position every 5 seconds
+        //   setInterval(function() {
+        //     fetch('http://api.open-notify.org/iss-now.json')
+        //       .then(function(response) {
+        //         return response.json();
+        //       })
+        //       .then(function(data) {
+        //         var issPosition = data.iss_position;
+        //         marker.setPosition(new google.maps.LatLng(issPosition.latitude, issPosition.longitude));
+        //         map.setCenter(new google.maps.LatLng(issPosition.latitude, issPosition.longitude));
+
+        //         document.getElementById('latitude').innerHTML = issPosition.latitude;
+        //         document.getElementById('longitude').innerHTML = issPosition.longitude;
+        //       });
+        //   }, 50000);
+        }
+        </script>
     <style>
+        #map {
+            height: 500px;
+            width: 70%;
+            margin: 0 auto;
+			display: block;
+        }
         body {
             padding: 8px;
             
@@ -20,6 +75,11 @@
             margin-bottom: 20px;
         }
         
+        h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
         p {
             margin-bottom: 20px;
             font-size: 1.2em;
@@ -34,12 +94,16 @@
 		}
 	</style>
 </head>
-<body>
+<body onload="initMap()">
 	<h1>International Space Station (ISS)</h1>
 	<img src="https://www.nasa.gov/sites/default/files/s132e012209_sm.jpg" alt="ISS Image">
 	<p> The International Space Station (ISS) is a habitable artificial satellite that orbits the Earth. It is a joint project between five space agencies: NASA (United States), Roscosmos (Russia),  JAXA (Japan), ESA (Europe), and CSA (Canada).</p>
 	<p> The ISS is the largest human-made structure in space and is about the size of a football field. It travels around the Earth at a speed of 17,500 miles per hour and completes an orbit every 90 minutes. Astronauts on board the ISS conduct scientific experiments, perform maintenance tasks, and conduct spacewalks.</p>
 	<p> The ISS has been continuously inhabited since November 2, 2000, and has been visited by astronauts from 19 countries. It is a symbol of international cooperation and a testament to human innovation and exploration.</p>
+    <h2>Current location of the ISS: </h2>
+    <p>Latitude:  <span id="latitude"></span></p>
+    <p>Longitude:  <span id="longitude"></span></p>
+    <div id="map"></div>
 </body>
 </html>
 

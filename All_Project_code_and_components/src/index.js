@@ -88,26 +88,6 @@ function getSpacePeople() {
   });
 }
 
-async function getIssLocation() {
-  //var issLocation;
-  axios({
-    url:"http://api.open-notify.org/iss-now.json",
-    method:"GET",
-    datatype:"json",
-    headers: {
-      'Accept-Encoding': 'application/json',
-    },
-  })
-  .then(results => {
-    console.log(results.data);
-    var issLocation = results.data;
-    //initMap(results.data.iss_position.latitude, results.data.iss_position.longitude)
-    return issLocation;
-
-  }) .catch(function (err) {
-    console.log(err);
-  });
-}
 console.log("PRE-SOLAR-FUNC")
 // Dashboard - Solar Flares API
 const solarAPIKEY = process.env.API_KEY
@@ -218,25 +198,7 @@ app.post('/login', (req, res) => {
 
 
 app.get('/dashboard', async (req, res) => {
-  // const issposition = await getIssLocation();
   
-  //   db.one(query, [req.query.username]).then(async data => {
-      
-  //     await axios({
-  //       url: `https://maps.googleapis.com/maps/api/geocode/json?address=` + data.address_line1.replaceAll(' ','\+') + '+' + data.city + '+' + data.state + '&key=' + process.env.GOOGLE_API_KEY,
-  //       method: 'GET'
-  //     }).then(results => {
-  //       results.data.results[0].address_components.forEach(elem => {
-          
-  //       });
-  //     }).catch(err => {
-  //       res.status(404).json(err);
-  //     });
-  //   }).catch(err => {
-  //     res.status(404).json(err);
-  //   }); 
- 
-  // const solarresult = await getSolarFlareAPI();
   const solarresult =   await axios({
     url: `https://api.nasa.gov/DONKI/FLR?api_key=${process.env.API_KEY}`,
     method: "GET",
