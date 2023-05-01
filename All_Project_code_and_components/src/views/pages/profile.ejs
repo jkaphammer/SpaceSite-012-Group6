@@ -6,6 +6,26 @@
 <head>
   <meta charset="UTF-8">
   <title>Profile</title>
+  <style>
+    body {
+        padding: 8px;
+        background-image: url(../img/skyBackground.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: white;
+        }
+  </style>
 </head>
 <body>
   <h1>Welcome, <%= name %></h1>
@@ -23,5 +43,14 @@
 </body>
 </html>
 
-
-<%- include ('../partials/footer') %>
+<footer class="text-center text-muted w-100 mt-auto fixed-bottom">
+  <!-- TO-DO: Add the <script><script /> tag to include bootstrap javascript -->
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"
+    ></script>
+  <p>
+    &copy; Copyright 2023 : CSCI 3308 - Astro Adventurers
+  </p>
+</footer>
