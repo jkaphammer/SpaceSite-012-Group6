@@ -17,16 +17,24 @@
             </div>
         </div>
         <%-include ('\commentModal.ejs') %>
+        <p style="color: white; font-size: larger; font-family: 'Times New Roman', Times, serif; display: flex; justify-content: center; align-items: center;">
+            Here are some comments other users wrote:
+        </p>
+        <table style="display: flex; justify-content: center; align-items: center;">
+            <% results.forEach(function(result) { %>
+                <tr>
+                    <td>
+                        <p style="color: aqua; font-size: medium; font-family: 'Times New Roman', Times, serif;">
+                            <%- result.email %>:  <%- result.comment %>
+                        </p>
 
 
-        <% results.forEach(function(result) { %>
-            <tr style="color:pink">
-                HERE'S A RESULT A COMMENT EXISTS IN THE TABLE
-            </tr>
-        <%});%> 
+                    </td>
+                </tr>
+            <%});%> 
+        </table>
 
-    </body>
-</html>
+
 
 
 <%- include ('../partials/footer') %>

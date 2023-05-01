@@ -8,7 +8,10 @@ CREATE TABLE users(
 );
 
 CREATE TABLE comments(
-    email VARCHAR(50) FOREIGN KEY REFERENCES users(email),
+    email VARCHAR(100) NOT NULL,
     comment VARCHAR(500) PRIMARY KEY,
-    pictureDate DATE NOT NULL
+    pictureDate DATE NOT NULL,
+    CONSTRAINT fk_email
+      FOREIGN KEY(email) 
+	  REFERENCES users(email)
 );
