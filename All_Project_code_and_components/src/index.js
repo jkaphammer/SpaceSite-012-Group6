@@ -218,7 +218,24 @@ app.post('/login', (req, res) => {
 
 
 app.get('/dashboard', async (req, res) => {
+  // const issposition = await getIssLocation();
   
+  //   db.one(query, [req.query.username]).then(async data => {
+      
+  //     await axios({
+  //       url: `https://maps.googleapis.com/maps/api/geocode/json?address=` + data.address_line1.replaceAll(' ','\+') + '+' + data.city + '+' + data.state + '&key=' + process.env.GOOGLE_API_KEY,
+  //       method: 'GET'
+  //     }).then(results => {
+  //       results.data.results[0].address_components.forEach(elem => {
+          
+  //       });
+  //     }).catch(err => {
+  //       res.status(404).json(err);
+  //     });
+  //   }).catch(err => {
+  //     res.status(404).json(err);
+  //   }); 
+ 
   // const solarresult = await getSolarFlareAPI();
   const solarresult =   await axios({
     url: `https://api.nasa.gov/DONKI/FLR?api_key=${process.env.API_KEY}`,
@@ -233,6 +250,11 @@ app.get('/dashboard', async (req, res) => {
 
 app.get('/google-sky', (req, res) => {
   res.render('pages/googleSky');
+});
+
+
+app.get('/iss', (req, res) => {
+  res.render('pages/iss');
 });
 
 app.post("/comment", (req, res) => {
