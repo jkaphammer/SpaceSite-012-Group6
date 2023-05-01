@@ -266,7 +266,7 @@ app.post("/comment", (req, res) => {
  console.log(date)
 
  const query = {
-  text: `INSERT INTO comments (email, comment, pictureDate) VALUES ($1, $2, $3) RETURNING *`, // the comments table doesn't exist?
+  text: `INSERT INTO comments (email, comment, pictureDate) VALUES ($1, $2, $3) RETURNING *;`, // the comments table doesn't exist?
   values: [req.body.email, req.body.comment, date], 
 };
 
@@ -304,7 +304,7 @@ app.get('/profile', (req, res) => {
 app.get("/home", async (req,res) => {
   let date = new Date().toJSON().slice(0,10);
 
-  const query = `SELECT * FROM comments WHERE pictureDate = ${date};`;
+  const query = `SELECT * FROM comments WHERE pictureDate = '${date}';`;
 
   db.one(query)
   .then((results) => {
