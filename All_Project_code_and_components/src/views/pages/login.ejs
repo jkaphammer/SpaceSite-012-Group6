@@ -15,10 +15,14 @@
       color: white;
     }
   </style>
+
+  <link rel="stylesheet" href="/css/login.css">
 </head>
 <main>
-  <div class="container">
-    <h3 style="color: white;">Login</h3>
+  <div class="container ">
+    <div class="text-center">
+      <h1 style= "color: white;">Login</h1>
+    </div>
     
     <form action="/login" method="POST">
 
@@ -41,7 +45,10 @@
     </form>
 
     <!-- Link to register if they don't have an account -->
-    <p>Don't have an account? <a href="/register">Register</a></p>
+    <div class="text-center">
+      <p>Don't have an account? <a href="/register">Register</a></p>
+    </div>
+
 
     <div class="col"><%- include ('../partials/message') %></div>
   </div>
