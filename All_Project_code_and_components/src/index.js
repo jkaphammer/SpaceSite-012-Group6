@@ -252,6 +252,14 @@ app.get('/google-sky', (req, res) => {
   res.render('pages/googleSky');
 });
 
+app.get('/google-moon', (req, res) => {
+  res.render('pages/googleMoon');
+});
+
+app.get('/google-mars', (req, res) => {
+  res.render('pages/googleMars');
+});
+
 
 app.get('/iss', (req, res) => {
   res.render('pages/iss');
