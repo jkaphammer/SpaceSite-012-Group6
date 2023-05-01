@@ -242,13 +242,13 @@ app.post("/comment", (req, res) => {
 
   db.one(query)
   .then((data) =>{
-    res.render('pages/home', {message: 'Comment Submitted!'});
     console.log('Comment Submitted!')
+    res.redirect('/home');
   })
   .catch((err) => {
     console.log('Error Not sumbitted comment');
     console.log(err);
-    res.render('pages/home', {results:[]});
+    res.redirect('/home');
   });
 });
 
@@ -276,15 +276,16 @@ app.get("/home", async (req,res) => {
 
   const query = `SELECT * FROM comments WHERE pictureDate = '${date}';`;
 
-  db.one(query)
-  .then((results) => {
+  db.any(query)
+  .then(results => {
+    console.log('rendered home with successful results?', results)
     res.render('pages/home', {results});
   })
   .catch((err) => {
     console.log(err);
     res.render('pages/home', {results:[]});
-  })
-})
+  });
+});
 
 app.get("/logout", (req, res) => {
   req.session.destroy();

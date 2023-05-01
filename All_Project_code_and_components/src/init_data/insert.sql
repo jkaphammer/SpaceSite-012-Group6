@@ -4,4 +4,4 @@ INSERT INTO users (name, email, password, birthday) VALUES
 -- ('John Deer', 'johndeer@example.com', 'HelloWorld0', '2000-01-01');
 
 INSERT INTO comments (email, comment, pictureDate) VALUES
-('fake@gmail.com', 'Heres a practice comment', '2000-01-01');
+('johndoe@example.com', 'Heres a practice comment', '2000-01-01');
