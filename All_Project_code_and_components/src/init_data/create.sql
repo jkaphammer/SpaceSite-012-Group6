@@ -15,3 +15,9 @@ CREATE TABLE comments(
       FOREIGN KEY(email) 
 	  REFERENCES users(email)
 );
+
+DROP TABLE IF EXISTS user_likes CASCADE;
+CREATE TABLE user_likes(
+    email VARCHAR(100) NOT NULL REFERENCES users(email),
+    picture_url VARCHAR(200) NOT NULL
+);

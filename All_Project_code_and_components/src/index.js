@@ -268,10 +268,16 @@ app.get('/profile', (req, res) => {
   }
   console.log(req.session.user);
   const query = `SELECT name, email, birthday FROM users WHERE users.email = '${req.session.user.email}';`;
+  const picturequery = `SELECT picture_url FROM user_likes WHERE email = '${req.session.user.email}';`
 
   db.one(query)
     .then((data) => {
-      res.render('pages/profile', { name: data.name, email: data.email, birthday: data.birthday });
+      db.any(picturequery)
+      .then(pquery => {
+        let pictures = pquery.map(obj => obj.picture_url);
+        console.log('liked: ', pictures);
+        res.render('pages/profile', { name: data.name, email: data.email, birthday: data.birthday, pictures:pictures});
+      })
     })
     .catch((err) => {
       console.log(err);
@@ -295,6 +301,54 @@ app.get("/home", async (req,res) => {
     res.render('pages/home', {results:[]});
   });
 });
+
+app.get('/pictures', (req, res) => {
+  const query = `SELECT picture_url FROM user_likes WHERE email = '${req.session.user.email}';`
+  axios({
+    url: `https://images-api.nasa.gov/album/Apollo?api_key=${solarAPIKEY}`,
+    method: "GET",
+    datatype: "json",
+    headers: {
+        'Accept-Encoding': 'application/json',
+    },
+})
+.then(async results => {
+  db.any(query)
+  .then(dbquery => {
+    console.log(dbquery);
+    console.log(results.data.collection.items[1].links[0].href)
+    let liked = dbquery.map(obj => obj.picture_url);
+    console.log(req.session.user);
+    res.render('pages/pictures', {results:results.data.collection.items, liked:liked});
+  })
+  })
+});
+
+
+app.post('/like', (req, res) => {
+  picturelink = req.body.picturelink;
+  query = `INSERT INTO user_likes (email, picture_url) VALUES ($1, $2);`
+  db.query(query, [req.session.user.email, picturelink])
+  .then(pictures => {
+    res.redirect('/pictures')
+  })
+  .catch(err => {
+    console.log(err)
+  })
+})
+
+
+app.post('/pictures/unlike', (req, res) => {
+  query = `DELETE FROM user_likes WHERE email = '${req.session.user.email}' AND picture_url = '${req.body.picturelink}';`
+  db.query(query)
+  .then(pictures => {
+    res.redirect('/pictures')
+  })
+  .catch(err => {
+    console.log(err)
+  })
+})
+
 
 app.get("/logout", (req, res) => {
   req.session.destroy();

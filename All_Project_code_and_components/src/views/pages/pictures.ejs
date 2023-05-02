@@ -1,0 +1,37 @@
+<!-- Include Header here -->
+<%- include ('../partials/header') %>
+<!-- Include Navbar menu here -->
+<%- include ('../partials/menu') %>
+
+<main>
+    <div class="container">
+        <div class="row">
+            <% var pictures = results; %>
+            <% pictures.filter(picture => picture.data[0].media_type == 'image').forEach(function(picture) { %>
+                <div class="col-4">
+                    <div class="card">
+                        <img class="card-img-top" src=<%= picture.links[0].href %>>
+                        <div class="card-body">
+                            <h5 class="card-title"><%= picture.data[0].title %></h5>
+                            <p class="card-text text-truncate"><%= picture.data[0].description %></p>
+                            <% if (!liked.includes(picture.links[0].href)) { %>
+                                <form action='/like' method="POST">
+                                    <input type="hidden" value="<%- picture.links[0].href%>" name="picturelink" id="picturelink">
+                                    <button style="color:red" type="submit">LIKE</button>
+                                </form>
+                            <%}else { %>
+                                <form action='pictures/unlike' method="POST">
+                                    <input type="hidden" value="<%- picture.links[0].href%>" name="picturelink" id="picturelink">
+                                    <button style="color:green" type="submit">UNLIKE</button>
+                                </form>
+                            <%}%>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</main>
+
+
+<%- include ('../partials/footer') %>
