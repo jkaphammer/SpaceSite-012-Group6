@@ -1,5 +1,6 @@
+<%- include ('../partials/header') %> 
 <header>
-    <nav class="navbar navbar-expand-sm border-bottom" style="background-color: grey;">
+    <nav class="navbar navbar-expand-sm border-bottom" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAzmb8LPgyacgjeGl4AdiWqFrjlVa0cG0UgA&usqp=CAU');">
       <div class="container">
         <button
           class="navbar-toggler ms-auto"
@@ -13,22 +14,42 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar-collapse">
           <ul class="navbar-nav me-auto">
-            <li class="nav-item">
+            <li class="nav-item" >
               <!-- TO-DO: For Discover, add a <a> tag with an attribute href to call the '/discover' API -->
-                <a href = "/home" class = "nav-link" style="color: black;">Home</a>
+                <a href = "/home" class = "nav-link" style="color: white;">Home</a>
             </li>
             <li class="nav-item">
                 <!-- TO-DO: For Discover, add a <a> tag with an attribute href to call the '/discover' API -->
-                  <a href = "/dashboard" class = "nav-link" style="color: black;">Dashboard</a>
+                  <a href = "/dashboard" class = "nav-link" style="color: white;">Dashboard</a>
+              </li>
+              <!-- Sky dropdown -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="/google-sky" id="navbarDropdown" role="button" data-bs-toggle='dropdown' aria-haspopup="true" aria-expanded="false" style="color: white;">
+                  Google Sky Map
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/google-sky">Stars</a>
+                  <a class="dropdown-item" href="/google-moon">Moon</a>
+                  <a class="dropdown-item" href="/google-mars">Mars</a>
+                </div>
+              </li> 
+              <li class="nav-item">
+                <!-- TO-DO: For Discover, add a <a> tag with an attribute href to call the '/discover' API -->
+                  <a href = "/iss" class = "nav-link" style="color: white;">ISS</a>
               </li>
               <li class="nav-item">
                 <!-- TO-DO: For Discover, add a <a> tag with an attribute href to call the '/discover' API -->
-                  <a href = "/google-sky" class = "nav-link" style="color: black;">Google Sky Map</a>
+                  <a href = "/profile" class = "nav-link" style="color:white;">Profile</a>
               </li>
+             
           </ul>
+          <div class="nav-item me-2" >
+            <!-- TO-DO: For Logout, add a <a> tag with an attribute href to call the '/logout API -->
+                <a href = "/login" class = "nav-link" style="color: white;">Login</a>
+          </div>
           <div class="nav-item me-1" >
             <!-- TO-DO: For Logout, add a <a> tag with an attribute href to call the '/logout API -->
-                <a href = "/logout" class = "nav-link" style="color: black;">Logout</a>
+                <a href = "/logout" class = "nav-link" style="color: white;">Logout</a>
           </div>
         </div>
       </div>

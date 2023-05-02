@@ -16,8 +16,25 @@
     
             </div>
         </div>
-    </body>
-</html>
+        <%-include ('\commentModal.ejs') %>
+        <p style="color: white; font-size: larger; font-family: 'Times New Roman', Times, serif; display: flex; justify-content: center; align-items: center;">
+            Here are some comments other users wrote:
+        </p>
+        <table style="display: flex; justify-content: center; align-items: center;">
+            <% results.forEach(function(result) { %>
+                <tr>
+                    <td>
+                        <p style="color: aqua; font-size: medium; font-family: 'Times New Roman', Times, serif;">
+                            <%- result.email %>:  <%- result.comment %>
+                        </p>
+
+
+                    </td>
+                </tr>
+            <%});%> 
+        </table>
+
+
 
 
 <%- include ('../partials/footer') %>

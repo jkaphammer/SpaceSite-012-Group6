@@ -10,53 +10,65 @@
 <html lang = "en">
     <head>
         <meta charset = "UTF-8">
-        <link  href = "/css/style.css" rel="stylesheet">
+        <link  href = "/css/dashboardStyle.css" rel="stylesheet">
         <title>Dashboard</title>
     </head>
     <!-- 20px bumper on left for everything within main -->
     <main style="margin-left: 20px"> 
         
-        <h1 style = "color: azure; text-decoration: underline;"><centre>Dashboard</centre></h1>
-        <div class="solar">
+        <h1 style = "color: azure; text-decoration: underline; text-align: center;">Dashboard</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="solar">
 
-            <h3>Solar flare data recorded by NASA</h3>
-            <!-- Table for solar flare info -->
-            <table style ="border: 5px solid #11416c; border-collapse:collapse; background-color: #11416c;">
-                <tr>
-                    <th>Flare ID</th>
-                    <td> <%=solarFlares.data[0].flrID %> </td>
-                </tr>
-                <tr>
-                    <th>Instruments</th>
-                    <td> <%=solarFlares.data[0].instruments[0].displayName %> </td>
-                </tr>
-                <tr>
-                    <th>Begin time</th>
-                    <td> <%=solarFlares.data[0].beginTime %> </td>
-                </tr>
-                <tr>
-                    <th>Peak time</th>
-                    <td> <%= solarFlares.data[0].peakTime %> </td>
-                </tr>
-                <tr>
-                    <th> End time </th>
-                    <td><%= solarFlares.data[0].endTime %></td>
-                </tr>
-                <tr>
-                    <th> Class type </th>
-                    <td><%= solarFlares.data[0].classType%></td>
-                </tr>
-                <tr>
-                    <th> Source location </th>
-                    <td><%= solarFlares.data[0].sourceLocation %></td>
-                </tr>
-                <tr>
-                    <td><a style="font-family: Verdana, Geneva, Tahoma, sans-serif;color: aqua;"href="<%= solarFlares.data[0].link %>"> Recent solar flare full data - NASA Website</a></td>
-                </tr>
-            </table>
-            
+                        <h3 style="text-align: center;">Solar flare data recorded by NASA</h3>
+                        <!-- Table for solar flare info -->
+                        <table style ="border: 5px solid #11416c; border-collapse:collapse; background-color: #11416c;">
+                            <tr>
+                                <th>Flare ID</th>
+                                <td> <%=solarFlares.data[0].flrID %> </td>
+                            </tr>
+                            <tr>
+                                <th>Instruments</th>
+                                <td> <%=solarFlares.data[0].instruments[0].displayName %> </td>
+                            </tr>
+                            <tr>
+                                <th>Begin time</th>
+                                <td> <%=solarFlares.data[0].beginTime %> </td>
+                            </tr>
+                            <tr>
+                                <th>Peak time</th>
+                                <td> <%= solarFlares.data[0].peakTime %> </td>
+                            </tr>
+                            <tr>
+                                <th> End time </th>
+                                <td><%= solarFlares.data[0].endTime %></td>
+                            </tr>
+                            <tr>
+                                <th> Class type </th>
+                                <td><%= solarFlares.data[0].classType%></td>
+                            </tr>
+                            <tr>
+                                <th> Source location </th>
+                                <td><%= solarFlares.data[0].sourceLocation %></td>
+                            </tr>
+                            <tr>
+                                <td><a style="font-family: Verdana, Geneva, Tahoma, sans-serif;color: aqua;"href="<%= solarFlares.data[0].link %>"> Recent solar flare full data - NASA Website</a></td>
+                            </tr>
+                        </table>
+                        
+                </div>
+            </div>
+            <div class="col" id="solarFlareDesc">
+                <h3 style="text-align: center;">What is a solar flare?</h3>
+                <img class ="solar-pic-center" src="../img/solarflare-image.jpg" alt="Image rendition of a solar flare" height="200" width="200" style="border: 5px solid; border-color: azure; text-align: center;">
+                <p class= "solar-desc">A solar flare is an intense localized eruption of electromagnetic radiation in the Sun's atmosphere. Flares occur in active regions and are often, but not always, accompanied by coronal mass ejections, solar particle events, and other solar phenomena.</p>
+                <p class="solar-desc">The table on the left shows info recorded from NASA about a recent solar flare. It is updated about every day. It shows an ID assigned by a scientist to the solar flare, what instruments were used to observe it, the date it started/ended, when the flare was at its peak, the class level it was given, and the coordinate location. Solar flares are classified most commonly using "Soft X-ray Classification", which is calculated by the flare's peak flux in watts per square meter. You can click on the link at the bottom of the table to get more info from the scientist's full entry!</p>
+                <sub>Wikipedia contributors. "Solar flare." Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 31 Mar. 2023. Web. 1 May. 2023.</sub>
+            </div>
         </div>
-    
+    </div>
     </main>
 </html>
 

@@ -11,7 +11,9 @@ const bcrypt = require('bcrypt'); //  To hash passwords
 const axios = require('axios'); // To make HTTP requests from our server. We'll learn more about it in Part B.
 
 const user = {
-  username: undefined,
+  name: undefined,
+  email: undefined,
+  birthday: undefined,
   password: undefined,
 };
 
@@ -86,34 +88,13 @@ function getSpacePeople() {
   });
 }
 
-async function getIssLocation() {
-  //var issLocation;
-  axios({
-    url:"http://api.open-notify.org/iss-now.json",
-    method:"GET",
-    datatype:"json",
-    headers: {
-      'Accept-Encoding': 'application/json',
-    },
-  })
-  .then(results => {
-    console.log(results.data);
-    //issLocation = results.data;
-    //initMap(results.data.iss_position.latitude, results.data.iss_position.longitude)
-    return results.data;
-
-  }) .catch(function (err) {
-    console.log(err);
-  });
-}
 console.log("PRE-SOLAR-FUNC")
 // Dashboard - Solar Flares API
-const solarAPIKEY = "kcfeqGsFGFrhNQb77BVpNbAj7RVmlHszKvbdsOPE"
+const solarAPIKEY = process.env.API_KEY
 function getSolarFlareAPI() {
   var solarFlares;
-  console.log("PRE-AXIOS");
   axios({
-    url: `https://api.nasa.gov/DONKI/FLR?api_key=${solarAPIKEY}`,
+    url: `https://api.nasa.gov/DONKI/FLR?api_key=${process.env.API_KEY}`,
     method: "GET",
     datatype: "json",
     headers: {
@@ -123,10 +104,7 @@ function getSolarFlareAPI() {
   
 
   .then(results => {
-    console.log("POST-AXIOS")
-    console.log(results);
     solarFlares = results;
-    console.log(solarFlares);
     return solarFlares;
   }) .catch(function (err) {
     console.log(err);
@@ -141,7 +119,7 @@ app.get('/welcome', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.redirect('/login'); //this will call the /login route in the API
+  res.redirect('/home'); //this will call the /login route in the API
 });
 
 app.get('/register', (req, res) => {
@@ -153,25 +131,28 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, birthday } = req.body;
 
   const hash = await bcrypt.hash(req.body.password,10);
   const query = {
-    text: 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
-    values: [name, email, hash],
+    text: 'INSERT INTO users (name, email, password, birthday) VALUES ($1, $2, $3, $4) RETURNING *',
+    values: [name, email, hash, birthday],
   };
   
   db.one(query)
   .then((data) =>{
 
-    user.username = data.name;
-    user.password = data.password;
+    user.name = data.name;
+    user.email = data.email;
+    user.birthday = data.birthday;
+    req.session.user = user;
+    req.session.save();
      
     res.render('pages/login', {message: 'Registered Successfully'});
   })
   .catch((err) => {
     console.log(err);
-    res.render('pages/register');
+    res.render('pages/register', {message: 'Try again with a different email'});
   });
 });
 
@@ -184,50 +165,48 @@ app.post('/login', (req, res) => {
     const match = await bcrypt.compare(req.body.password, data.password);
 
     if(match){
-      console.log(match)
+      console.log(match);
       user.email = req.body.email;
-      user.username = req.body.name;
+      user.name = req.body.name;
+      user.birthday = req.body.birthday;
       
       req.session.user = user;
       req.session.save();
-      res.render('pages/home', {message: 'logged in successfully'});
+      res.redirect('/home');
     }else{
       res.render('pages/login', {message: 'Incorrect email or password'});
     }
 
   })
   .catch((err)=>{
-    res.render('pages/register');
+    res.redirect('/register');
     console.log(err);
   });
 
 });
 
-// Authentication Middleware.
-const auth = (req, res, next) => {
-  if (!req.session.user) {
-    // Default to login page.
-    return res.redirect('/login');
-  }
-  next();
-};
-// Authentication Required
-app.use(auth);
+// // Authentication Middleware.
+// const auth = (req, res, next) => {
+//   if (!req.session.user) {
+//     // Default to login page.
+//     return res.redirect('/login');
+//   }
+//   next();
+// };
+// // Authentication Required
+// app.use(auth);
 
 
 app.get('/dashboard', async (req, res) => {
   
-  // const solarresult = await getSolarFlareAPI();
   const solarresult =   await axios({
-    url: `https://api.nasa.gov/DONKI/FLR?api_key=${solarAPIKEY}`,
+    url: `https://api.nasa.gov/DONKI/FLR?api_key=${process.env.API_KEY}`,
     method: "GET",
     datatype: "json",
     headers: {
       'Accept-Encoding': 'application/json',
     },
   });
-  console.log("CHECKHERE");
-  console.log(solarresult.data);
   res.render('pages/dashboard', {solarFlares: solarresult});
 });
 
@@ -235,30 +214,78 @@ app.get('/google-sky', (req, res) => {
   res.render('pages/googleSky');
 });
 
-
-app.get("/home", (req, res) => {
-  res.render("pages/home");
+app.get('/google-moon', (req, res) => {
+  res.render('pages/googleMoon');
 });
 
-function contentLoader()
-{
-  sendApiReq();
+app.get('/google-mars', (req, res) => {
+  res.render('pages/googleMars');
+});
+
+
+app.get('/iss', (req, res) => {
+  res.render('pages/iss');
+});
+
+app.post("/comment", (req, res) => {
+ // writing an api where when the comment form is submitted, 
+ // it puts the comment into the comment table database with the comment, and email
+
+ let date = new Date().toJSON().slice(0, 10);
+
+ console.log(date)
+
+ const query = {
+  text: `INSERT INTO comments (email, comment, pictureDate) VALUES ($1, $2, $3) RETURNING *;`, // the comments table doesn't exist?
+  values: [req.body.email, req.body.comment, date], 
 };
 
-async function sendApiReq() 
-{
-  let APIKEY = "kcfeqGsFGFrhNQb77BVpNbAj7RVmlHszKvbdsOPE";
-  let res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${APIKEY}`);
-  let data = await res.json();
-  useApiData(data);
-};
+  db.one(query)
+  .then((data) =>{
+    console.log('Comment Submitted!')
+    res.redirect('/home');
+  })
+  .catch((err) => {
+    console.log('Error Not sumbitted comment');
+    console.log(err);
+    res.redirect('/home');
+  });
+});
 
-function useApiData(data)
-{
-  document.querySelector("#title").innerHTML += data.title;
-  document.querySelector("#content").innerHTML += `<img src = "${data.url}" class = "main.img" /> <br/>`
-  document.querySelector("#content").innerHTML += data.explanation;
-}
+app.get('/profile', (req, res) => {
+  // Check if user is logged in
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
+  console.log(req.session.user);
+  const query = `SELECT name, email, birthday FROM users WHERE users.email = '${req.session.user.email}';`;
+
+  db.one(query)
+    .then((data) => {
+      res.render('pages/profile', { name: data.name, email: data.email, birthday: data.birthday });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect('/login');
+    });
+});
+
+
+app.get("/home", async (req,res) => {
+  let date = new Date().toJSON().slice(0,10);
+
+  const query = `SELECT * FROM comments WHERE pictureDate = '${date}';`;
+
+  db.any(query)
+  .then(results => {
+    console.log('rendered home with successful results?', results)
+    res.render('pages/home', {results});
+  })
+  .catch((err) => {
+    console.log(err);
+    res.render('pages/home', {results:[]});
+  });
+});
 
 app.get("/logout", (req, res) => {
   req.session.destroy();

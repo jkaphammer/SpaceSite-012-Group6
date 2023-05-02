@@ -1,0 +1,34 @@
+Week 1
+*******
+- Create users database table initialized
+- Login and Register pages created
+- Dashboard page created
+- Index.js initialized
+
+Week 2
+*******
+- Header and footer for pages created
+- Created API call test cases 
+- Enabled users to be added to database after registering
+- Solar FLR API created and linked to Dashboard
+- Home page API created
+- index.js debug, can now link to login/logout
+- Picture of the Day API created
+
+Week 3
+*******
+- Google Sky page added
+- Picture of the Day API finished
+- FLR API Data table finished
+- Created script for ISS link to Google Maps API
+- Debugged Picture of the Day API
+- Debugged login/register API - users now linked to register if no account
+- Fixed all API key calls to be linked to hidden .events
+- Comment modal created
+
+Week 4
+*******
+- Debugged comment modal, now only lets logged in users comment
+- Finished ISS API
+- Google sky dropdown menu added for mars, moon, stars
+- Updated dashboard formatting
