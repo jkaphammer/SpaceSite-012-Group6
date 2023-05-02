@@ -207,7 +207,16 @@ app.get('/dashboard', async (req, res) => {
       'Accept-Encoding': 'application/json',
     },
   });
-  res.render('pages/dashboard', {solarFlares: solarresult});
+  const peopleinspace = await axios({
+    url: `http://api.open-notify.org/astros.json`,
+    method: "GET",
+    datatype: "json",
+    headers: {
+      'Accept-Encoding': 'application/json'
+    },
+  });
+  console.log(peopleinspace.data.people);
+  res.render('pages/dashboard', {solarFlares: solarresult, peopleinspace:peopleinspace.data.people});
 });
 
 app.get('/google-sky', (req, res) => {

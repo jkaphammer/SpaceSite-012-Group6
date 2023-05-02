@@ -5,7 +5,6 @@
 <!-- Include Navbar menu here -->
 <%- include ('../partials/menu') %>
 
-
 <!DOCTYPE hmtl>
 <html lang = "en">
     <head>
@@ -15,13 +14,11 @@
     </head>
     <!-- 20px bumper on left for everything within main -->
     <main style="margin-left: 20px"> 
-        
         <h1 style = "color: azure; text-decoration: underline; text-align: center;">Dashboard</h1>
         <div class="container">
             <div class="row">
                 <div class="col">
                     <div class="solar">
-
                         <h3 style="text-align: center;">Solar flare data recorded by NASA</h3>
                         <!-- Table for solar flare info -->
                         <table style ="border: 5px solid #11416c; border-collapse:collapse; background-color: #11416c;">
@@ -57,9 +54,8 @@
                                 <td><a target="_blank" style="font-family: Verdana, Geneva, Tahoma, sans-serif;color: aqua;"href="<%= solarFlares.data[0].link %>"> Recent solar flare full data - NASA Website</a></td>
                             </tr>
                         </table>
-                        
+                    </div>
                 </div>
-            </div>
             <div class="col" id="solarFlareDesc">
                 <h3 style="text-align: center;">What is a solar flare?</h3>
                 <img class ="solar-pic-center" src="../img/solarflare-image.jpg" alt="Image rendition of a solar flare" height="200" width="200" style="border: 5px solid; border-color: azure; text-align: center;">
@@ -67,8 +63,25 @@
                 <p class="solar-desc">The table on the left shows info recorded from NASA about a recent solar flare. It is updated about every day. It shows an ID assigned by a scientist to the solar flare, what instruments were used to observe it, the date it started/ended, when the flare was at its peak, the class level it was given, and the coordinate location. Solar flares are classified most commonly using "Soft X-ray Classification", which is calculated by the flare's peak flux in watts per square meter. You can click on the link at the bottom of the table to get more info from the scientist's full entry!</p>
                 <sub>Wikipedia contributors. "Solar flare." Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 31 Mar. 2023. Web. 1 May. 2023.</sub>
             </div>
+            </div>
         </div>
-    </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="solar">
+                        <h3 style="text-align:center;">People in Space</h3>
+                        <table style="border: 5px solid #11416c; border-collapse:collapse; background-color: #11416c;">
+                            <% peopleinspace.forEach(function(person) { %>
+                                <tr>
+                                    <th><%= person.name %></th>
+                                    <td><%= person.craft %></td>
+                                </tr>
+                            <% }); %>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 </html>
 
