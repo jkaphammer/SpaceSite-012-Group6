@@ -29,3 +29,9 @@ Meeting 2: 4/19
     - Start on comment feature
     - Profile Page after Login/Logout
     - Like/Dislike Feature
+    
+Meeting 3: 5/1
+    - Project Presentation
+        - All features, Time yourself before (10 minutes total), future enhancements
+        - Each person should have at least one slide to talk about
+        - Talk about project, not code
