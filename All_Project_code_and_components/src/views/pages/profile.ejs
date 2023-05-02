@@ -45,7 +45,18 @@
     <input type="file" id="profile-picture-upload">
     <label for="profile-picture-upload">Change Picture</label>
   </div>
-  
+  <title>Liked Pictures</title>
+  <div class="container">
+    <div class="row">
+      <% pictures.forEach(function(picture) { %>
+      <div class="col-4">
+        <div class="card">
+          <img class="card-img-top" src=<%= picture %>>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+  </div>
 </body>
 </html>
 
