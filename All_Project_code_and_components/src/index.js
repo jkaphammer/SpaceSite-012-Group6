@@ -303,6 +303,9 @@ app.get("/home", async (req,res) => {
 });
 
 app.get('/pictures', (req, res) => {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
   const query = `SELECT picture_url FROM user_likes WHERE email = '${req.session.user.email}';`
   axios({
     url: `https://images-api.nasa.gov/album/Apollo?api_key=${solarAPIKEY}`,
