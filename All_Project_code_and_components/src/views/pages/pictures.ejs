@@ -2,7 +2,9 @@
 <%- include ('../partials/header') %>
 <!-- Include Navbar menu here -->
 <%- include ('../partials/menu') %>
-
+ <head>
+    <link  href = "/css/style.css" rel="stylesheet">
+ </head>
 <main>
     <div class="container">
         <div class="row">
@@ -17,12 +19,12 @@
                             <% if (!liked.includes(picture.links[0].href)) { %>
                                 <form action='/like' method="POST">
                                     <input type="hidden" value="<%- picture.links[0].href%>" name="picturelink" id="picturelink">
-                                    <button style="color:red" type="submit">LIKE</button>
+                                    <button style="color:green" type="submit">LIKE</button>
                                 </form>
                             <%}else { %>
                                 <form action='pictures/unlike' method="POST">
                                     <input type="hidden" value="<%- picture.links[0].href%>" name="picturelink" id="picturelink">
-                                    <button style="color:green" type="submit">UNLIKE</button>
+                                    <button style="color:red" type="submit">UNLIKE</button>
                                 </form>
                             <%}%>
                         </div>
