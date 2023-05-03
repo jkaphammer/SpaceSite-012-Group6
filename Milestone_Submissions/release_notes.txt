@@ -32,3 +32,6 @@ Week 4
 - Finished ISS API
 - Google sky dropdown menu added for mars, moon, stars
 - Updated dashboard formatting
+- Implemented NASA's Pictures Database
+- Connected image like/dislike feature to profile page
+- Final version deployed
