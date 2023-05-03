@@ -22,7 +22,7 @@ Meeting 2: 4/12
         Attempt to write clean code
         Move your own project board stories BEFORE meeting
 
-Meeting 2: 4/19
+Meeting 3: 4/19
     - Continue working on ISS API and UI
     - Finish Picture of the Day API
     - Finish login/logout feature
@@ -30,7 +30,7 @@ Meeting 2: 4/19
     - Profile Page after Login/Logout
     - Like/Dislike Feature
     
-Meeting 3: 5/1
+Meeting 4: 5/1
     - Project Presentation
         - All features, Time yourself before (10 minutes total), future enhancements
         - Each person should have at least one slide to talk about
