@@ -8,10 +8,10 @@
     width: 250px;
 
   }
-  .form-group label,
+  /* .form-group label, */
   .form-control{
       width: 250px;
-      color: aliceblue;
+      color: black;
   }
 
   form {
