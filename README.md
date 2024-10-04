@@ -8,5 +8,4 @@ Application prereqs: If you are running the website off of the deployment link, 
 
 Running tests: Change the command line in the docker-compose file to "npm run testandrun". Restart Docker and you should see test results in the terminal.
 
-Deployed website link: http://recitation-12-team-06.eastus.cloudapp.azure.com:3000
 
